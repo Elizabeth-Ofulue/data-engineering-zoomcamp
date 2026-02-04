@@ -1,18 +1,53 @@
 
+# macOS
 .DS_Store
+
+# IDEs
 .idea
+.vscode/settings.json
+
+# Terraform
 *.tfstate
 *.tfstate.*
 **.terraform
 **.terraform.lock.*
+
+# Credentials and secrets
 **google_credentials.json
-**logs/
 **.env
+!.env.template
+
+# Python
 **__pycache__/
-.history
+**.pyc
+**.pyo
+.pytest_cache/
+.coverage
+.ruff_cache/
+
+# UV and virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs and data
+**logs/
 **/ny_taxi_postgres_data/*
 serving_dir
-.ipynb_checkpoints/
-!week_6_stream_processing/avro_example/data/rides.csv
+.history
 *.parquet
 *.csv
+!week_6_stream_processing/avro_example/data/rides.csv
+
+# dbt
+**/target/
+**/dbt_packages/
+**/logs/
+
+# Temporary files
+*.tmp
+*.log
+.cache/

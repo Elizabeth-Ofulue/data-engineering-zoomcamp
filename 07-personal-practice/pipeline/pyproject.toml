@@ -1,0 +1,83 @@
+[project]
+name = "data-engineering-zoomcamp"
+version = "0.1.0"
+description = "Data Engineering Zoomcamp - Complete Learning Repository"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # Core data processing
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "pyarrow>=22.0.0",
+    
+    # Database connections
+    "psycopg2-binary>=2.9.0",
+    "sqlalchemy>=2.0.0",
+    
+    # Utilities
+    "click>=8.0.0",
+    "tqdm>=4.65.0",
+    "requests>=2.28.0",
+    
+    # Jupyter notebooks
+    "jupyter>=1.0.0",
+    "ipykernel>=6.0.0",
+]
+
+[dependency-groups]
+# Development tools
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "pgcli>=4.0.0",
+]
+
+# Docker and Infrastructure (Week 1)
+docker = [
+    "docker>=6.0.0",
+]
+
+# Workflow Orchestration (Week 2) 
+orchestration = [
+    "prefect>=2.0.0",
+]
+
+# Data Warehouse (Week 3)
+warehouse = [
+    "google-cloud-bigquery>=3.0.0",
+]
+
+# Analytics Engineering (Week 4)
+analytics = [
+    "dbt-core>=1.5.0",
+    "dbt-bigquery>=1.5.0",
+]
+
+# Batch Processing (Week 5) - install separately due to complexity
+batch = [
+    "findspark>=2.0.0",
+]
+
+# Streaming (Week 6)
+streaming = [
+    "kafka-python>=2.0.0",
+    "confluent-kafka>=2.0.0",
+    "fastavro>=1.7.0",
+    "avro>=1.11.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = []
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
