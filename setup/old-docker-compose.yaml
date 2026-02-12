@@ -1,0 +1,48 @@
+services:
+  # PostgreSQL Database
+  pgdatabase:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi
+    volumes:
+      - ny_taxi_postgres_data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # pgAdmin Web Interface
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8085:80"
+    depends_on:
+      - pgdatabase
+    restart: unless-stopped
+
+  # Taxi Data Ingestion (run manually with: docker-compose run taxi_ingest)
+  taxi_ingest:
+    image: taxi_ingest:v001
+    command: >
+      python ingest_data.py
+      --pg-user=root
+      --pg-pass=root
+      --pg-host=pgdatabase
+      --pg-port=5432
+      --pg-db=ny_taxi
+      --target-table=yellow_taxi_trips_2021_1
+      --chunksize=100000
+    depends_on:
+      - pgdatabase
+    # This service doesn't auto-start, run manually with: docker-compose run taxi_ingest
+
+# Define the volumes
+volumes:
+  ny_taxi_postgres_data:
+  pgadmin_data:
